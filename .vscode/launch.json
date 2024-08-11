@@ -1,0 +1,10 @@
+{
+    "cwd": "${workspaceFolder}",
+    "name": "Debug Serverless Offline",
+    "request": "launch",
+    "runtimeArgs": ["run", "debug"],
+    "runtimeExecutable": "npm",
+    "sourceMaps": true,
+    "type": "node",
+
+  }

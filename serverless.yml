@@ -1,0 +1,21 @@
+service: api-bff-chat-web
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ${self:custom.regions.${self:provider.stage}}
+  stage: ${opt:stage, 'dev'}
+  timeout: 60
+  environment: ${file(ymls/environment.yml)}
+
+custom: ${file(ymls/custom.yml)}
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http:
+          path: /api/chat
+          method: post
+
+plugins:
+  - serverless-offline

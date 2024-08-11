@@ -1,0 +1,17 @@
+serverless-offline:
+    httpPort: 3000
+
+regions:
+    prd: us-east-1
+    dev: us-east-1
+    hml: us-east-1
+
+X_API_KEY:
+    prd: ovc06FJnpP8GwtbFQoyxD259ZwG5l2uu5vOWuhNW
+    dev: ovc06FJnpP8GwtbFQoyxD259ZwG5l2uu5vOWuhNW
+    hml: ovc06FJnpP8GwtbFQoyxD259ZwG5l2uu5vOWuhNW
+    
+NodeEnv:
+    dev: develop
+    hml: develop
+    prd: production

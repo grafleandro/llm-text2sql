@@ -1,0 +1,2 @@
+LOG_IS_LAMBDA: 'true'
+NODE_ENV: ${self:custom.NodeEnv.${opt:stage, self:provider.stage, 'dev'}}
