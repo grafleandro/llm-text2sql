@@ -30,9 +30,10 @@
 - **`docker-compose.yml`**: Arquivo para configurar e iniciar contêiner Docker.
 - **`src/index.js`**: Código principal do servidor Express.
 - **`src/llm/llama.js`**: Implementação para interação com o LLM .
+- **`src/middleware/authenticateApiKey.js`**: Código de autenticação por meio do x-api-key.
+- **`src/database/connect-mysql.js`**: Código para conexão com o banco de dados MySQL.
 - **`ollama`**: Pasta criada pelo ollama para salvar arquivos do LLM.
 - **`tests`**: Testes automatizados da aplicação.
-- **`src/database/connect-mysql.js`**: Código para conexão com o banco de dados MySQL.
 - **`yamls`**: Pasta com arquivos para configuração das variáveis de ambiente do serverless.
 - **`package.json`**: Gerenciador de dependências e scripts do Node.js.
 - **`serverless.yaml`**: Configuração do serverless.

@@ -3,9 +3,9 @@ import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
 import serverless from 'serverless-http';
-import getSqlResponse from '../llm/ollama.js';
-import getSchemaInfo from '../database/getSchemaInfo.js';
-import authenticateApiKey from '../middleware/authenticateApiKey.js';
+import getSqlResponse from './llm/ollama.js';
+import getSchemaInfo from './database/getSchemaInfo.js';
+import authenticateApiKey from './middleware/authenticateApiKey.js';
 import { config  } from 'dotenv';
 
 const app = express();
