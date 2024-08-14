@@ -53,8 +53,8 @@
 1. **Clone o Repositório**
 
    ```bash
-   git clone https://github.com/usuario/nome-do-repositorio.git
-   cd nome-do-repositorio
+   git clone https://github.com/grafleandro/llm-text2sql
+   cd llm-text2sql
 
 2. **Instale as Dependências**
     ```bash
