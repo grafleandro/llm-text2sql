@@ -11,7 +11,7 @@ provider:
 custom: ${file(ymls/custom.yml)}
 functions:
   app:
-    handler: index.handler
+    handler: /src/index.handler
     events:
       - http:
           path: /api/chat

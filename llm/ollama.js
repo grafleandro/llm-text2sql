@@ -1,11 +1,13 @@
 import { Ollama } from "@langchain/ollama";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 
+
 export default async function getSqlResponse(input, schemas) {
   try {
-    console.log("aqui");
+    console.log("Aguardando o LLM...");
     const llm = new Ollama({
-      model: "duckdb-nsql", 
+      model: "mistral-nemo", 
+      // model: "llama3.1", 
       temperature: 0,
       maxRetries: 2,
     });
@@ -14,52 +16,24 @@ export default async function getSqlResponse(input, schemas) {
     const prompt = ChatPromptTemplate.fromMessages([
       [
         "system",
-        `Converta a seguinte solicitação em uma consulta SQL, utilizando o esquema de banco de dados fornecido entre as tags <contexto></contexto>. Se a solicitação envolver mais de uma tabela e houver uma relação entre elas, realize uma junção de tabelas. Use as informações dentro de <contexto></contexto> para identificar as tabelas, suas colunas e as relações entre elas. As tabelas disponíveis no banco de dados são:
+        `You are a {dialect} expert.
 
-- customers
-- employee_privileges
-- employees
-- inventory_transaction_types
-- inventory_transactions
-- invoices
-- order_details
-- order_details_status
-- orders
-- orders_status
-- orders_tax_status
-- privileges
-- products
-- purchase_order_details
-- purchase_order_status
-- purchase_orders
-- sales_reports
-- shippers
-- strings
-- suppliers
+Please help to generate a {dialect} query to answer the question. Your response should ONLY be based on the given context and follow the response guidelines and format instructions.
 
-<contexto>
-Schemas:
-      {schema}
-Relacionamto:
-        fk_orders_customers,customer_id,customers,id
-        fk_orders_employees1,employee_id,employees,id
-        fk_orders_orders_status1,status_id,orders_status,id
-        fk_orders_orders_tax_status1,tax_status_id,orders_tax_status,id
-        fk_orders_shippers1,shipper_id,shippers,id
-        fk_invoices_orders1,order_id,orders,id
-        fk_order_details_orders1,order_id,orders,id
-        fk_order_details_order_details_status1,status_id,order_details_status,id
-        fk_order_details_products1,product_id,products,id
-        fk_purchase_order_details_inventory_transactions1,inventory_id,inventory_transactions,id
-        fk_purchase_order_details_products1,product_id,products,id
-        fk_purchase_order_details_purchase_orders1,purchase_order_id,purchase_orders,id
-        fk_purchase_orders_employees1,created_by,employees,id
-        fk_purchase_orders_purchase_order_status1,status_id,purchase_order_status,id
-        fk_purchase_orders_suppliers1,supplier_id,suppliers,id
-</contexto>
-**Regras:**
-Só realize relação entre tabelas quando necessario.
-Crie SQL que responda a pergunta de forma direta, não invente possiveis casos na resposta do SQL.
+===Tables
+{schema}
+
+
+===Response Guidelines
+1. Translate the question into English and then formulate your answer.
+2. Don't add filter conditions that aren't clear in the question.
+3. If the provided context is sufficient, please generate a valid query without any explanations for the question.
+4. If the provided context is insufficient, please explain why it can't be generated
+5. Please use the most relevant table(s).
+
+
+===Question
+{input}
 
 `,
       ],
@@ -69,11 +43,12 @@ Crie SQL que responda a pergunta de forma direta, não invente possiveis casos n
     const chain = prompt.pipe(llm);
     const response = await chain.invoke({
       input: input,
-      schema: schemas
+      schema: schemas,
+      dialect: "SQL"
     });
 
     return response
   } catch (err) {
-    console.error('Erro ao conectar no LLM:', err.message);
+    res.status(500).json({ error: 'Error connecting to LLM' });
   }
 };
