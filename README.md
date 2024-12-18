@@ -45,7 +45,7 @@
 - Docker
 - MySQL
 - Docker Compose 
-- 8 GB de memória RAM
+- 16 GB de memória RAM
 - 25 GB de HD livre
 
 ### Passos para Rodar Localmente
@@ -67,8 +67,8 @@
       
       2 - Realiza o pull do modelo e o starta, deixando uma mensagem pedindo um input no terminal do container.
     ```bash
-    docker-compose up -d
-    docker exec -it ollama ollama run mistral-nemo
+    docker-compose up -d OR docker-compose -f docker-compose-gpu.yml up -d
+    docker exec -it ollama ollama run codellama:13b
     ```
 
 4. **Executando o Serverless com a aplicação**

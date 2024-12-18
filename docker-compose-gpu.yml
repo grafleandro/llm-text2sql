@@ -1,18 +1,27 @@
 version: '3'
 services:
   ollama:
-
     image: ollama/ollama:latest
     ports:
       - 11434:11434
     volumes:
-      - ./ollama/ollama:/root/.ollama
+      - .ollama/:/root/.ollama
     container_name: ollama
     pull_policy: always
     tty: true
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 30G          
+        reservations:
+          memory: 16G
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     environment:
-      - OLLAMA_KEEP_ALIVE=60
+      - OLLAMA_KEEP_ALIVE=-1
       - OLLAMA_HOST=0.0.0.0
     networks:
       - ollama-docker

@@ -1,11 +1,13 @@
 # compiled output
 /dist
 /node_modules
+/.ollama
 /ollama
 /envs
 # Logs
 logs
 *.log
+*.zip
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
